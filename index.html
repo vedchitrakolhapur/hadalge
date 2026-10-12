@@ -994,18 +994,128 @@ body {
     
     <main class="container">
         
+            
+            <style>
+                 
+                .slideshow-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 10px; }
+                
+                 
+                .slider-img {
+                    width: 100%;
+                    height: auto;
+                    aspect-ratio: 16/9;
+                    object-fit: cover;
+                    vertical-align: middle;
+                }
+                
+                 
+                @media(min-width: 768px) {
+                    .slider-img { height: 450px; aspect-ratio: auto; }
+                }
+
+                 
+                .prev, .next {
+                    cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px;
+                    color: white; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0;
+                    user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none;
+                }
+                .next { right: 0; border-radius: 3px 0 0 3px; }
+                .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+
+                 
+                .dots-container { text-align: center; margin-top: -30px; position: relative; z-index: 10; padding-bottom: 10px; }
+                .dot {
+                    cursor: pointer; height: 10px; width: 10px; margin: 0 2px; background-color: rgba(255,255,255,0.5);
+                    border-radius: 50%; display: inline-block; transition: background-color 0.6s ease;
+                    border: 1px solid #fff;
+                }
+                
+                 
+                 
+                 
+                .dot.active, .dot:hover { background-color: white; transform: scale(1.2); }
+                
+                 
+                .fade { animation-name: fade; animation-duration: 1.5s; }
+                @keyframes fade { from {opacity: .4} to {opacity: 1} }
+            </style>
+            <div class="slideshow-container">
+                
+                <div class="mySlides fade" style="display: block;">
+                    <img src="https://hadalge.gadgp.in/assets/gp1384775.webp" class="slider-img">
+                </div>
+                <div class="mySlides fade" style="display: none;">
+                    <img src="https://hadalge.gadgp.in/assets/gp7734965.webp" class="slider-img">
+                </div>
+                <div class="mySlides fade" style="display: none;">
+                    <img src="https://hadalge.gadgp.in/assets/gp7308635.webp" class="slider-img">
+                </div>
+                <div class="mySlides fade" style="display: none;">
+                    <img src="https://hadalge.gadgp.in/assets/gp4133333.webp" class="slider-img">
+                </div>
+                <div class="mySlides fade" style="display: none;">
+                    <img src="https://hadalge.gadgp.in/assets/gp9592456.webp" class="slider-img">
+                </div>
+                <div class="mySlides fade" style="display: none;">
+                    <img src="https://hadalge.gadgp.in/assets/gp2595405.webp" class="slider-img">
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                <div class="dots-container">
+                    <span class="dot active" onclick="currentSlide(1)"></span><span class="dot " onclick="currentSlide(2)"></span><span class="dot " onclick="currentSlide(3)"></span><span class="dot " onclick="currentSlide(4)"></span><span class="dot " onclick="currentSlide(5)"></span><span class="dot " onclick="currentSlide(6)"></span>
+                </div>
+            </div>
+            
+            <script>
+                var slideIndex = 1;
+                var slideTimer;
+
+                
+                showSlides(slideIndex);
+
+                function plusSlides(n) {
+                    clearTimeout(slideTimer);
+                    showSlides(slideIndex += n);
+                }
+
+                function currentSlide(n) {
+                    clearTimeout(slideTimer);
+                    showSlides(slideIndex = n);
+                }
+
+                function showSlides(n) {
+                    var i;
+                    var slides = document.getElementsByClassName("mySlides");
+                    var dots = document.getElementsByClassName("dot");
+                    
+                    if (n > slides.length) {slideIndex = 1}
+                    if (n < 1) {slideIndex = slides.length}
+                    
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    
+                    if(slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
+                    if(dots[slideIndex-1]) dots[slideIndex-1].className += " active";
+
+                    slideTimer = setTimeout(function() { plusSlides(1) }, 4000); 
+                }
+            </script>
         <div class="about-section text-center">
             <h2 class="section-title">गावाविषयी थोडक्यात</h2>
             <p class="content-text" style="text-align: center;">आमच्या गावात तुमचे स्वागत आहे. हे गाव निसर्गसंपन्न आणि सांस्कृतिक वारसा जपलेले आहे... हडलगे हे गडहिंग्लज तालुक्यातील एक आदर्श गाव आहे. निसर्गाच्या कुशीत वसलेले हे गाव आपल्या कृषी संस्कृती आणि सामाजिक एकात्मतेसाठी ओळखले जाते. आधुनिक सोयीसुविधा आणि पारंपारिक जीवनशैली यांचा सुंदर मिलाफ येथे पाहायला मिळतो.</p>
             <a href="about.html" class="btn-small" style="background:var(--primary); color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">अधिक वाचा &rarr;</a>
         </div>
         <div class="quick-info-container">
-            <div class="stat-card"><i class="fas fa-users"></i><h3>2350 </h3><p>लोकसंख्या</p></div>
-            <div class="stat-card"><i class="fas fa-home"></i><h3>0 </h3><p>एकूण घरे</p></div>
+            <div class="stat-card"><i class="fas fa-users"></i><h3>२२९७ ( २०११ नुसार )</h3><p>लोकसंख्या</p></div>
+            <div class="stat-card"><i class="fas fa-home"></i><h3>५७३ </h3><p>एकूण घरे</p></div>
             <div class="stat-card"><i class="fas fa-graduation-cap"></i><h3>0</h3><p>साक्षरता दर (%)</p></div>
-            <div class="stat-card"><i class="fas fa-map-signs"></i><h3>0</h3><p>प्रभाग संख्या</p></div>
-            <div class="stat-card"><i class="fas fa-chart-area"></i><h3>0</h3><p>क्षेत्रफळ (Ha)</p></div>
-            <div class="stat-card"><i class="fas fa-hand-holding-water"></i><h3>0</h3><p>पाण्याचे स्रोत</p></div>
+            <div class="stat-card"><i class="fas fa-map-signs"></i><h3>0३ </h3><p>प्रभाग संख्या</p></div>
+            <div class="stat-card"><i class="fas fa-chart-area"></i><h3>१०७६.३६ </h3><p>क्षेत्रफळ (Ha)</p></div>
+            <div class="stat-card"><i class="fas fa-hand-holding-water"></i><h3>1</h3><p>पाण्याचे स्रोत</p></div>
         </div>
         <style>
             .bearers-section { padding: 20px 0; }
@@ -1122,13 +1232,6 @@ body {
                             <div class="designation">उपमुख्यमंत्री</div>
                             <div class="name">श्री. एकनाथ शिंदे</div>
                         </div>
-                    </div>
-                    <div class="bearer-card">
-                        <div class="photo-box"><img src="https://hadalge.gadgp.in/assets/gp3561354.webp" alt="श्री. अजित पवार"></div>
-                        <div class="info-box">
-                            <div class="designation">उपमुख्यमंत्री</div>
-                            <div class="name">श्री. अजित पवार</div>
-                        </div>
                     </div></div>
             <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
             <div class="bearer-tabs-container">
@@ -1159,17 +1262,17 @@ body {
                 <div class="bearer-row empty-row"></div>
                 <div class="bearer-row">
                     <div class="bearer-card">
-                        <div class="photo-box"><div class="no-photo"><i class="fas fa-user"></i></div></div>
+                        <div class="photo-box"><img src="https://hadalge.gadgp.in/assets/gp2792747.webp" alt="श्री हणमंत जोतिबा पाटील "></div>
                         <div class="info-box">
                             <div class="designation">सरपंच</div>
-                            <div class="name">-</div>
+                            <div class="name">श्री हणमंत जोतिबा पाटील </div>
                         </div>
                     </div>
                     <div class="bearer-card">
-                        <div class="photo-box"><div class="no-photo"><i class="fas fa-user"></i></div></div>
+                        <div class="photo-box"><img src="https://hadalge.gadgp.in/assets/gp2987507.webp" alt="सौ. कल्पना कल्लाप्पा पाटील "></div>
                         <div class="info-box">
                             <div class="designation">उपसरपंच</div>
-                            <div class="name">-</div>
+                            <div class="name">सौ. कल्पना कल्लाप्पा पाटील </div>
                         </div>
                     </div></div>
             </div>
@@ -1210,7 +1313,7 @@ body {
         <div class="news-section">
             <div class="news-header"><i class="fas fa-bullhorn"></i> ताज्या बातम्या व अपडेट्स</div>
             <div class="news-content">
-                <ul></ul>
+                <ul><li class="news-item"><span class="new-badge">New</span> <strong>हडलगे गावाविषयी </strong> <a href="https://youtu.be/EWSyqgpPOvc?si=cNIsSbmfZU3LjWVb" target="_blank" class="news-link">अधिक वाचा &rarr;</a></li></ul>
             </div>
         </div>
         <style>
